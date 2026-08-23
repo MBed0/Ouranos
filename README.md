@@ -36,7 +36,7 @@ The name reflects the scope of the system: an engineering platform intended to o
 ---
 
 <p align="center">
-  <img src="assets/gif.gif" width="92%">
+  <img src="assets/gif .gif" width="92%">
 </p>
 
 ## Design Philosophy
@@ -131,7 +131,7 @@ Supported architecture classes include high-wing, low-wing, shoulder-wing, flyin
 ## The Aircraft as a System
 
 <p align="center">
-  <img src="assets/exploded-aircraft.png" width="90%">
+  <img src="assets/skull.png" width="90%">
 </p>
 
 Every major subsystem is represented as a discrete, engineering-defined component:
