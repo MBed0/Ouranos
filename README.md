@@ -2,7 +2,10 @@
 
 ### Mission-Driven Generative Aircraft Engineering
 
-<img src="https://img.wikiwand.com/wikipedia/commons/thumb/1/12/MQ-9_Reaper_UAV_%28cropped%29.jpg/1280px-MQ-9_Reaper_UAV_%28cropped%29.jpg" width="76%" alt="Header"/>
+<p align="center">
+  <img src="https://wikiwand.com" width="100%" style="max-height: 300px; object-fit: cover;" alt="Header"/>
+</p>
+
 
 
 <p align="center">
