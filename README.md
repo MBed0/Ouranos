@@ -2,9 +2,8 @@
 
 ### Mission-Driven Generative Aircraft Engineering
 
-<p align="center">
-  <img src="https://img.wikiwand.com/wikipedia/commons/thumb/1/12/MQ-9_Reaper_UAV_%28cropped%29.jpg/1280px-MQ-9_Reaper_UAV_%28cropped%29.jpg" width="500">
-</p>
+<img src="https://img.wikiwand.com/wikipedia/commons/thumb/1/12/MQ-9_Reaper_UAV_%28cropped%29.jpg/1280px-MQ-9_Reaper_UAV_%28cropped%29.jpg" width="100%" alt="Header"/>
+
 
 <p align="center">
   <strong>MISSION → ARCHITECTURE → ENGINEERING → PACKAGING → VALIDATION → CAD</strong>
