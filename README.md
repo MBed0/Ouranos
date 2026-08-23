@@ -83,7 +83,7 @@ all agree with one another.
 ## SYSTEM ARCHITECTURE
 
 <p align="center">
-  <img src="assets/ouranos-system-diagram.png" width="88%">
+  <img src="assets/skull.png" width="88%">
 </p>
 
 ```text
