@@ -3,7 +3,7 @@
 ### Mission-Driven Generative Aircraft Engineering
 
 <p align="center">
-  <img src="banner.png" width="%65" height="70%">
+  <img src="banner.png" width="%30" height="30%">
 </p>
 
 <p align="center">
