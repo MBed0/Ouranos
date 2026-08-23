@@ -2,6 +2,8 @@
 
 ### Mission-Driven Generative Aircraft Engineering System
 
+## DEMO Early Accses Apply from here : https://forms.gle/BxXWqVn4iUmqxuJ87
+
 **OURANOS is a generative engineering platform for UAV and aircraft design — an AI-assisted system that takes a mission requirement and produces a complete, validated, parametrically connected aircraft, including geometry, structure, propulsion, avionics, sensors, internal packaging, and CAD-ready assembly.**
 
 If you are searching for a **UAV 3D model generator**, an **AI system for 3D aircraft modeling**, or a **parametric aircraft design engine**, OURANOS is built to address exactly that problem: generating engineering-correct, three-dimensional aircraft systems directly from mission requirements, rather than producing cosmetic geometry alone.
@@ -473,9 +475,3 @@ OURANOS sits at the intersection of generative AI and aerospace engineering. It 
 
 **Mission → Engineering → Aircraft**
 
-
-## DEMO 
-
-<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfv8fsDNFV5wix6xkf9mBo0lOAuUB4rbhh3OfKxcYPVFaxQEQ/viewform?embedded=true" width="640" height="1098" frameborder="0" marginheight="0" marginwidth="0">Yükleniyor…</iframe>
-
-</p>
