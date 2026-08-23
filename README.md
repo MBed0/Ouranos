@@ -3,7 +3,7 @@
 ### Mission-Driven Generative Aircraft Engineering
 
 <p align="center">
-  <img src="assets/ouranos-banner.png" width="100%">
+  <img src="banner.png" width="100%">
 </p>
 
 <p align="center">
