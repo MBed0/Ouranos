@@ -36,7 +36,7 @@ The project takes its name from the Greek concept of the **sky itself** rather t
 ---
 
 <p align="center">
-  <img src="assets/hero-uav.jpg" width="92%">
+  <img src="assets/gui.png" width="92%">
 </p>
 
 ## A Different Approach to Aircraft Design
