@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OURANOS — Mission-Driven Generative Aircraft Engineering System | UAV 3D Model Generator</title>
+<meta name="description" content="OURANOS is an AI-assisted, parametric engineering platform that turns a mission requirement into a complete UAV/aircraft system — geometry, structure, propulsion, avionics, and CAD. UAV 3D model generator, generative aircraft design, parametric UAV design.">
+<meta name="keywords" content="UAV 3D model, UAV 3D model generator, AI for 3D aircraft modeling, generative aircraft design, parametric UAV design, AI-assisted CAD for drones, mission-driven aircraft engineering, drone design automation, parametric aircraft geometry, aircraft system generation, Ouranos">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://github.com/MBed0/Ouranos">
+<meta property="og:type" content="website">
+<meta property="og:title" content="OURANOS — Mission-Driven Generative Aircraft Engineering System">
+<meta property="og:description" content="A generative engineering platform that turns a mission requirement into a complete, validated UAV/aircraft system — geometry, structure, propulsion, avionics, and CAD.">
+<meta property="og:image" content="https://raw.githubusercontent.com/MBed0/Ouranos/main/assets/gui.png">
+<meta property="og:url" content="https://github.com/MBed0/Ouranos">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="OURANOS — Mission-Driven Generative Aircraft Engineering System">
+<meta name="twitter:description" content="From mission requirement to CAD-ready UAV/aircraft system: parametric, validated, generative engineering.">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/MBed0/Ouranos/main/assets/gui.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "OURANOS",
+  "applicationCategory": "EngineeringApplication",
+  "operatingSystem": "N/A",
+  "description": "Mission-driven generative aircraft engineering system: an AI-assisted platform producing complete, validated, parametrically connected UAV and aircraft designs from a mission requirement.",
+  "url": "https://github.com/MBed0/Ouranos",
+  "codeRepository": "https://github.com/MBed0/Ouranos",
+  "keywords": "UAV 3D model generator, generative aircraft design, parametric UAV design, AI-assisted CAD for drones"
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0a0e13;
+    --panel:#111820;
+    --panel-2:#151d27;
+    --line:#233241;
+    --blueprint:#5b9bd1;
+    --blueprint-dim:#2c4a5f;
+    --signal:#5eead4;
+    --amber:#e8a23e;
+    --red:#e8685d;
+    --ink:#dbe4ec;
+    --ink-dim:#8595a6;
+    --ink-faint:#4d5c6b;
+    --display: 'Space Grotesk', sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
+    --body: 'Inter', sans-serif;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--void);
+    color:var(--ink);
+    font-family:var(--body);
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  body::before{
+    content:'';
+    position:fixed; inset:0;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size:64px 64px;
+    opacity:0.12;
+    pointer-events:none;
+    z-index:0;
+  }
+  a{color:inherit;}
+  img{max-width:100%; display:block;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 28px; position:relative; z-index:1;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--signal);
+    display:flex; align-items:center; gap:10px;
+    margin-bottom:18px;
+  }
+  .eyebrow::before{content:''; width:20px; height:1px; background:var(--signal);}
+  h1,h2,h3{font-family:var(--display); font-weight:600; letter-spacing:-0.01em;}
+  section{position:relative; z-index:1; padding:120px 0;}
+  section + section{border-top:1px solid var(--line);}
+
+  /* NAV */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    backdrop-filter:blur(10px);
+    background:rgba(10,14,19,0.75);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{display:flex; align-items:center; justify-content:space-between; padding-top:18px; padding-bottom:18px;}
+  .logo{font-family:var(--display); font-weight:700; font-size:19px; letter-spacing:0.02em; display:flex; align-items:center; gap:10px;}
+  .logo .dot{width:8px; height:8px; border-radius:50%; background:var(--signal); box-shadow:0 0 10px var(--signal);}
+  .navlinks{display:flex; gap:32px; font-size:14px; color:var(--ink-dim);}
+  .navlinks a{text-decoration:none; transition:color .2s;}
+  .navlinks a:hover{color:var(--ink);}
+  .navcta{
+    font-family:var(--mono); font-size:12.5px; padding:9px 16px;
+    border:1px solid var(--blueprint); border-radius:3px; color:var(--ink);
+    text-decoration:none; transition:all .2s; white-space:nowrap;
+  }
+  .navcta:hover{background:var(--blueprint); color:var(--void);}
+  @media (max-width:860px){ .navlinks{display:none;} }
+
+  /* HERO */
+  .hero{padding:200px 0 120px; border-top:none;}
+  .hero-grid{display:grid; grid-template-columns:1.05fr 0.95fr; gap:60px; align-items:center;}
+  @media (max-width:960px){ .hero-grid{grid-template-columns:1fr;} }
+  .hero h1{font-size:clamp(38px,5.4vw,68px); line-height:1.04; margin-bottom:24px;}
+  .hero h1 em{font-style:normal; color:var(--blueprint);}
+  .hero p.lead{font-size:18px; color:var(--ink-dim); max-width:52ch; margin-bottom:36px;}
+  .btn-row{display:flex; gap:16px; flex-wrap:wrap;}
+  .btn{
+    font-family:var(--mono); font-size:13.5px; padding:14px 24px; border-radius:3px;
+    text-decoration:none; display:inline-flex; align-items:center; gap:10px; transition:all .2s;
+  }
+  .btn-primary{background:var(--signal); color:#04211c; font-weight:600;}
+  .btn-primary:hover{background:#84f2de; transform:translateY(-1px);}
+  .btn-ghost{border:1px solid var(--line); color:var(--ink);}
+  .btn-ghost:hover{border-color:var(--blueprint); color:var(--blueprint);}
+  .hero-svg-wrap{border:1px solid var(--line); background:var(--panel); border-radius:6px; padding:20px; position:relative;}
+  .hero-svg-wrap::after{
+    content:'FIG. 01 — MISSION → AIRFRAME'; position:absolute; bottom:10px; right:16px;
+    font-family:var(--mono); font-size:10px; letter-spacing:0.1em; color:var(--ink-faint);
+  }
+  .plane-line{fill:none; stroke:var(--blueprint); stroke-width:1.4; stroke-dasharray:1400; stroke-dashoffset:1400; animation:draw 3.2s ease forwards;}
+  .plane-line.delay{animation-delay:.4s;}
+  .plane-dot{fill:var(--signal); opacity:0; animation:fadein .6s ease forwards; animation-delay:3s;}
+  @keyframes draw{to{stroke-dashoffset:0;}}
+  @keyframes fadein{to{opacity:1;}}
+
+  .stat-row{display:flex; gap:36px; margin-top:48px; flex-wrap:wrap;}
+  .stat{font-family:var(--mono);}
+  .stat b{display:block; font-size:22px; color:var(--ink); font-weight:600;}
+  .stat span{font-size:11.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.08em;}
+
+  /* PHILOSOPHY */
+  .philosophy-quote{
+    font-family:var(--display); font-size:clamp(24px,3vw,36px); line-height:1.3; max-width:16ch;
+    color:var(--ink-faint); margin-bottom:20px;
+  }
+  .philosophy-quote strong{color:var(--ink); font-weight:600;}
+  .chip-cloud{display:flex; flex-wrap:wrap; gap:10px; margin-top:40px;}
+  .chip{
+    font-family:var(--mono); font-size:12.5px; padding:8px 14px; border:1px solid var(--line);
+    border-radius:100px; color:var(--ink-dim);
+  }
+  .two-col{display:grid; grid-template-columns:1fr 1fr; gap:60px;}
+  @media (max-width:860px){ .two-col{grid-template-columns:1fr;} }
+
+  /* PIPELINE */
+  .pipe{counter-reset:step;}
+  .pipe-step{
+    display:grid; grid-template-columns:70px 1fr; gap:26px; padding:26px 0; border-top:1px solid var(--line);
+  }
+  .pipe-step:last-child{border-bottom:1px solid var(--line);}
+  .pipe-num{font-family:var(--mono); color:var(--blueprint); font-size:14px; padding-top:2px;}
+  .pipe-step h3{font-size:19px; margin-bottom:6px;}
+  .pipe-step p{color:var(--ink-dim); font-size:15px; max-width:62ch;}
+
+  /* SECTION HEADS */
+  .sec-head{max-width:640px; margin-bottom:56px;}
+  .sec-head h2{font-size:clamp(26px,3.2vw,40px); margin-bottom:16px;}
+  .sec-head p{color:var(--ink-dim); font-size:16.5px;}
+
+  /* IMAGE PANEL */
+  .imgpanel{border:1px solid var(--line); border-radius:6px; overflow:hidden; background:var(--panel);}
+  .imgpanel img{width:100%; display:block;}
+  .imgpanel .cap{
+    font-family:var(--mono); font-size:11.5px; color:var(--ink-faint); padding:12px 16px;
+    border-top:1px solid var(--line); letter-spacing:.04em; text-transform:uppercase;
+  }
+
+  /* DEPENDENCY CHAIN */
+  .chain{display:flex; flex-direction:column; gap:0; font-family:var(--mono); font-size:13.5px;}
+  .chain-node{
+    padding:12px 18px; border:1px solid var(--line); border-radius:4px; background:var(--panel-2);
+    display:inline-block; width:fit-content; color:var(--ink);
+  }
+  .chain-arrow{color:var(--ink-faint); padding:4px 0 4px 26px; font-size:14px;}
+  .chain-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:32px;}
+  @media (max-width:860px){ .chain-grid{grid-template-columns:1fr;} }
+  .chain-title{font-family:var(--body); font-size:13px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.08em; margin-bottom:16px;}
+
+  /* VALIDATION TABLE */
+  .val-table{width:100%; border-collapse:collapse; font-family:var(--mono); font-size:13.5px;}
+  .val-table tr{border-top:1px solid var(--line);}
+  .val-table tr:last-child{border-bottom:1px solid var(--line);}
+  .val-table td{padding:13px 6px; color:var(--ink-dim);}
+  .val-table td:first-child{color:var(--ink); width:60%;}
+  .badge{display:inline-block; padding:3px 10px; border-radius:3px; font-size:11.5px; letter-spacing:.05em;}
+  .badge.pass{background:rgba(94,234,212,0.12); color:var(--signal);}
+  .badge.warn{background:rgba(232,162,62,0.12); color:var(--amber);}
+  .badge.err{background:rgba(232,104,93,0.12); color:var(--red);}
+
+  /* ARCHITECTURE GRID */
+  .arch-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:12px;}
+  .arch-item{
+    border:1px solid var(--line); border-radius:4px; padding:16px; font-family:var(--mono); font-size:12.5px;
+    color:var(--ink-dim); text-align:center; transition:all .2s;
+  }
+  .arch-item:hover{border-color:var(--blueprint); color:var(--ink);}
+
+  /* ORIGIN */
+  .origin{display:grid; grid-template-columns:0.8fr 1.2fr; gap:60px; align-items:center;}
+  @media (max-width:860px){ .origin{grid-template-columns:1fr;} }
+  .greek{font-family:var(--display); font-size:64px; color:var(--blueprint); line-height:1;}
+  .origin blockquote{
+    font-family:var(--display); font-size:20px; color:var(--ink); border-left:2px solid var(--signal);
+    padding-left:20px; margin-top:24px; font-style:normal;
+  }
+
+  /* CTA */
+  .cta-final{
+    text-align:center; padding:110px 0;
+  }
+  .cta-final h2{font-size:clamp(28px,4vw,46px); max-width:18ch; margin:0 auto 20px;}
+  .cta-final p{color:var(--ink-dim); max-width:52ch; margin:0 auto 36px;}
+  .btn-row.center{justify-content:center;}
+
+  footer{border-top:1px solid var(--line); padding:48px 0; }
+  .foot-grid{display:flex; justify-content:space-between; flex-wrap:wrap; gap:20px; align-items:center;}
+  .foot-note{font-size:13px; color:var(--ink-faint); max-width:60ch;}
+  .foot-links{display:flex; gap:24px; font-size:13.5px; color:var(--ink-dim);}
+  .foot-links a{text-decoration:none;}
+  .foot-links a:hover{color:var(--signal);}
+
+  .reveal{opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  @media (prefers-reduced-motion: reduce){
+    .plane-line{animation:none; stroke-dashoffset:0;}
+    .plane-dot{animation:none; opacity:1;}
+    .reveal{transition:none; opacity:1; transform:none;}
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="logo"><span class="dot"></span>OURANOS</div>
+    <div class="navlinks">
+      <a href="#philosophy">Philosophy</a>
+      <a href="#pipeline">Pipeline</a>
+      <a href="#validation">Validation</a>
+      <a href="#architecture">Design Space</a>
+      <a href="#origin">Origin</a>
+    </div>
+    <a class="navcta" href="https://forms.gle/BxXWqVn4iUmqxuJ87" target="_blank" rel="noopener">Early Access</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">Generative Aircraft Engineering</div>
+      <h1>From a mission<br>requirement to a<br><em>complete aircraft</em> system.</h1>
+      <p class="lead">OURANOS is a generative engineering platform for UAV and aircraft design. It takes a mission requirement and produces a validated, parametrically connected aircraft — geometry, structure, propulsion, avionics, sensors, internal packaging, and CAD-ready assembly.</p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="https://forms.gle/BxXWqVn4iUmqxuJ87" target="_blank" rel="noopener">Apply for Early Access →</a>
+        <a class="btn btn-ghost" href="https://github.com/MBed0/Ouranos" target="_blank" rel="noopener">View on GitHub</a>
+      </div>
+      <div class="stat-row">
+        <div class="stat"><b>MISSION → CAD</b><span>Single pipeline</span></div>
+        <div class="stat"><b>50+</b><span>Candidate designs / mission</span></div>
+        <div class="stat"><b>12+</b><span>Architecture classes</span></div>
+      </div>
+    </div>
+    <div class="hero-svg-wrap">
+      <svg viewBox="0 0 480 340" xmlns="http://www.w3.org/2000/svg">
+        <path class="plane-line" d="M40 170 L200 170 L230 120 L250 120 L260 170 L440 170 L440 182 L260 182 L250 210 L320 260 L320 270 L235 235 L225 270 L235 300 L225 300 L205 265 L195 300 L185 300 L195 270 L185 235 L100 270 L100 260 L170 210 L160 182 L40 182 Z"/>
+        <path class="plane-line delay" d="M225 60 L235 60 L238 118 L222 118 Z"/>
+        <circle class="plane-dot" cx="245" cy="145" r="3"/>
+        <circle class="plane-dot" cx="130" cy="176" r="2.5" style="animation-delay:3.2s"/>
+        <circle class="plane-dot" cx="360" cy="176" r="2.5" style="animation-delay:3.4s"/>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<section id="philosophy">
+  <div class="wrap">
+    <div class="two-col">
+      <div>
+        <div class="eyebrow">Design Philosophy</div>
+        <p class="philosophy-quote">"Do not generate an aircraft shell. <strong>Generate an aircraft system.</strong>"</p>
+        <p style="color:var(--ink-dim); max-width:52ch;">Most existing tools focus on external geometry alone. In OURANOS, a design is considered complete only when every component below is consistent with the others.</p>
+      </div>
+      <div class="chip-cloud">
+        <span class="chip">Airframe</span><span class="chip">Control Surfaces</span><span class="chip">Servos</span>
+        <span class="chip">Propulsion</span><span class="chip">Battery</span><span class="chip">Avionics</span>
+        <span class="chip">Sensors</span><span class="chip">Cameras</span><span class="chip">Antennas</span>
+        <span class="chip">Structure</span><span class="chip">Landing Gear</span><span class="chip">Internal Packaging</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="pipeline">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">System Architecture</div>
+      <h2>One linear path, from mission to assembly</h2>
+      <p>Each stage consumes the output of the one before it; the parametric dependency graph propagates any change automatically.</p>
+    </div>
+    <div class="pipe">
+      <div class="pipe-step"><div class="pipe-num">01</div><div><h3>Mission Requirements</h3><p>The mission definition — range, payload, endurance, operational profile — is the input to the pipeline.</p></div></div>
+      <div class="pipe-step"><div class="pipe-num">02</div><div><h3>Architecture Synthesis</h3><p>Architecture classes compatible with the mission (high-wing, flying-wing, twin-motor, etc.) are generated.</p></div></div>
+      <div class="pipe-step"><div class="pipe-num">03</div><div><h3>Aircraft Sizing</h3><p>Wing loading, thrust requirement, and mass budget are derived from the mission parameters.</p></div></div>
+      <div class="pipe-step"><div class="pipe-num">04</div><div><h3>Parametric Geometry</h3><p>From sizing, full parametric geometry is built, with every element linked to the others.</p></div></div>
+      <div class="pipe-step"><div class="pipe-num">05</div><div><h3>Components & Structure</h3><p>Motor, battery, avionics, sensors, and the load-bearing structure are resolved simultaneously.</p></div></div>
+      <div class="pipe-step"><div class="pipe-num">06</div><div><h3>Internal Packaging</h3><p>Collision, insufficient volume, cable routing, and center-of-gravity checks run automatically.</p></div></div>
+      <div class="pipe-step"><div class="pipe-num">07</div><div><h3>Engineering Validation</h3><p>Every design passes structured checks that show exactly why it is valid or invalid.</p></div></div>
+      <div class="pipe-step"><div class="pipe-num">08</div><div><h3>Optimization & CAD</h3><p>Validated candidates are ranked and turned into a CAD-ready, assemblable structure.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="graph">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Parametric Dependency Graph</div>
+      <h2>One parameter, recalculated everywhere</h2>
+      <p>This is the central concept: a change to one component propagates automatically through every dependent subsystem.</p>
+    </div>
+    <div class="chain-grid">
+      <div>
+        <div class="chain-title">Example — Propulsion</div>
+        <div class="chain">
+          <div class="chain-node">LARGER MOTOR</div><div class="chain-arrow">↓</div>
+          <div class="chain-node">MOTOR MOUNT</div><div class="chain-arrow">↓</div>
+          <div class="chain-node">ESC REQUIREMENT</div><div class="chain-arrow">↓</div>
+          <div class="chain-node">COOLING</div><div class="chain-arrow">↓</div>
+          <div class="chain-node">MASS → CG</div><div class="chain-arrow">↓</div>
+          <div class="chain-node">BATTERY</div><div class="chain-arrow">↓</div>
+          <div class="chain-node">STRUCTURE</div>
+        </div>
+      </div>
+      <div>
+        <div class="chain-title">Example — Control Surface</div>
+        <div class="chain">
+          <div class="chain-node">LARGER FLAP</div><div class="chain-arrow">↓</div>
+          <div class="chain-node">AERO LOAD</div><div class="chain-arrow">↓</div>
+          <div class="chain-node">SERVO REQUIREMENT</div><div class="chain-arrow">↓</div>
+          <div class="chain-node">SERVO BAY</div><div class="chain-arrow">↓</div>
+          <div class="chain-node">LINKAGE</div><div class="chain-arrow">↓</div>
+          <div class="chain-node">WING STRUCTURE</div>
+        </div>
+      </div>
+      <div>
+        <div class="chain-title">Example — Camera</div>
+        <div class="chain">
+          <div class="chain-node">SECOND CAMERA</div><div class="chain-arrow">↓</div>
+          <div class="chain-node">MASS → CG</div><div class="chain-arrow">↓</div>
+          <div class="chain-node">MOUNTING STRUCTURE</div><div class="chain-arrow">↓</div>
+          <div class="chain-node">INTERNAL VOLUME</div><div class="chain-arrow">↓</div>
+          <div class="chain-node">CABLE ROUTING</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="validation">
+  <div class="wrap two-col">
+    <div>
+      <div class="eyebrow">Engineering Validation</div>
+      <h2 style="font-size:28px; margin-bottom:16px;">Every design goes through engineering checks</h2>
+      <p style="color:var(--ink-dim); margin-bottom:32px;">The goal isn't forcing every design into a passing state — it's showing exactly why a design is valid or invalid.</p>
+      <table class="val-table">
+        <tr><td>CG</td><td><span class="badge pass">PASS</span></td></tr>
+        <tr><td>WING LOADING</td><td><span class="badge pass">PASS</span></td></tr>
+        <tr><td>STALL SPEED</td><td><span class="badge pass">PASS</span></td></tr>
+        <tr><td>BATTERY VOLUME</td><td><span class="badge warn">WARNING</span></td></tr>
+        <tr><td>SERVO PACKAGING</td><td><span class="badge err">ERROR</span></td></tr>
+        <tr><td>MANUFACTURABILITY</td><td><span class="badge warn">WARNING</span></td></tr>
+      </table>
+    </div>
+    <div class="imgpanel">
+      <img src="https://raw.githubusercontent.com/MBed0/Ouranos/main/assets/validation-dashboard.png" alt="OURANOS validation dashboard screenshot" loading="lazy">
+      <div class="cap">Validation Dashboard — MBed0/Ouranos</div>
+    </div>
+  </div>
+</section>
+
+<section id="architecture">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Design Space</div>
+      <h2>Multiple architectures, not cosmetic variation</h2>
+      <p>OURANOS is built to explore fundamentally different aircraft architectures, rather than superficial variations of a single baseline.</p>
+    </div>
+    <div class="arch-grid">
+      <div class="arch-item">High-Wing</div><div class="arch-item">Low-Wing</div><div class="arch-item">Shoulder-Wing</div>
+      <div class="arch-item">Flying-Wing</div><div class="arch-item">Twin-Boom</div><div class="arch-item">V-Tail</div>
+      <div class="arch-item">T-Tail</div><div class="arch-item">Pusher</div><div class="arch-item">Tractor</div>
+      <div class="arch-item">Twin-Motor</div><div class="arch-item">Motor-Glider</div><div class="arch-item">Modular-Payload</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Design Exploration</div>
+      <h2>One mission, fifty candidates</h2>
+      <p>A single mission definition can produce an entire design space — varying in architecture, wing geometry, propulsion layout, and payload placement — rather than a single answer.</p>
+    </div>
+    <div class="imgpanel">
+      <img src="https://raw.githubusercontent.com/MBed0/Ouranos/main/assets/candidate-grid.png" alt="OURANOS candidate design grid" loading="lazy">
+      <div class="cap">Candidate Grid — Design 01 … 50</div>
+    </div>
+  </div>
+</section>
+
+<section id="origin">
+  <div class="wrap origin">
+    <div>
+      <div class="greek">Οὐρανός</div>
+      <div class="eyebrow" style="margin-top:16px;">Origin of the Name</div>
+    </div>
+    <div>
+      <p style="color:var(--ink-dim); font-size:16.5px;">In Greek mythology, Ouranos is the primordial personification of the sky. The name reflects the scope of the system: an engineering platform meant to operate across the entire design space, from the first mission requirement to the complete aircraft — rather than any single aircraft.</p>
+      <blockquote>One mission. Many possible aircraft.</blockquote>
+    </div>
+  </div>
+</section>
+
+<section class="cta-final">
+  <div class="wrap">
+    <div class="eyebrow" style="justify-content:center;">Project Status</div>
+    <h2>An independent research and engineering project</h2>
+    <p>This public repository documents the project's research direction, engineering concepts, and development progress through written descriptions and visual demonstrations. Core implementation, proprietary algorithms, and internal component databases are not distributed publicly.</p>
+    <div class="btn-row center">
+      <a class="btn btn-primary" href="https://forms.gle/BxXWqVn4iUmqxuJ87" target="_blank" rel="noopener">Apply for Early Access →</a>
+      <a class="btn btn-ghost" href="https://github.com/MBed0/Ouranos" target="_blank" rel="noopener">Open Repo on GitHub</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-grid">
+    <div class="foot-note">OURANOS · Mission → Engineering → Aircraft. "The aircraft is not the model. The aircraft is the system behind the model." — This is an unofficial showcase page built from public information in the MBed0/Ouranos GitHub repository.</div>
+    <div class="foot-links">
+      <a href="https://github.com/MBed0/Ouranos" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://github.com/MBed0/Ouranos/issues" target="_blank" rel="noopener">Issues</a>
+      <a href="https://forms.gle/BxXWqVn4iUmqxuJ87" target="_blank" rel="noopener">Early Access</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const revealEls = document.querySelectorAll('section .wrap > *');
+  revealEls.forEach(el => el.classList.add('reveal'));
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+  }, {threshold:0.12});
+  revealEls.forEach(el => io.observe(el));
+</script>
+</body>
+</html>
